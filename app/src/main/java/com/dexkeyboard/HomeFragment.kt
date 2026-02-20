@@ -73,13 +73,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadImes() {
-        val list = ImeManager.getEnabledInputMethods(requireContext())
-        val current = ImeManager.getCurrentInputMethod(requireContext())
-        
-        val adapter = ImeAdapter(requireContext(), list, current) { imeId ->
-            switchIme(imeId)
+        try {
+            // 使用 getAllInputMethods 获取完整列表
+            val list = ImeManager.getAllInputMethods(requireContext())
+            
+            if (list.isEmpty()) {
+                log("警告：未能获取到任何输入法。请检查权限设置。")
+            }
+            
+            val current = ImeManager.getCurrentInputMethod(requireContext())
+            
+            val adapter = ImeAdapter(requireContext(), list, current) { imeId ->
+                switchIme(imeId)
+            }
+            binding.recyclerViewImes.adapter = adapter
+        } catch (e: Exception) {
+            log("获取输入法列表失败: ${e.message}")
+            e.printStackTrace()
         }
-        binding.recyclerViewImes.adapter = adapter
     }
 
     private fun switchIme(imeId: String) {
