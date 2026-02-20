@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment
 import com.dexkeyboard.databinding.ActivityMainBinding
 import rikka.shizuku.Shizuku
 
+/**
+ * 主 Activity
+ * 负责 Shizuku 权限监听和 Fragment 导航
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -14,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     val homeFragment = HomeFragment()
     val settingsFragment = SettingsFragment()
 
+    // Shizuku 服务绑定监听器
     private val binderReceivedListener = Shizuku.OnBinderReceivedListener {
         if (ShizukuManager.hasPermission()) {
             homeFragment.refreshStatus()
@@ -22,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Shizuku 权限请求结果监听器
     private val requestPermissionResultListener = Shizuku.OnRequestPermissionResultListener { requestCode, grantResult ->
         if (requestCode == ShizukuManager.REQUEST_CODE) {
             homeFragment.refreshStatus()
@@ -33,9 +39,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 注册 Shizuku 监听器
         ShizukuManager.addBinderReceivedListener(binderReceivedListener)
         ShizukuManager.addRequestPermissionResultListener(requestPermissionResultListener)
 
+        // 设置底部导航栏
         binding.navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> switchFragment(homeFragment)
@@ -57,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // 移除 Shizuku 监听器，防止内存泄漏
         ShizukuManager.removeBinderReceivedListener(binderReceivedListener)
         ShizukuManager.removeRequestPermissionResultListener(requestPermissionResultListener)
     }

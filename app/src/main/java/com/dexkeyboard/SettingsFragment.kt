@@ -13,6 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * 设置 Fragment
+ * 管理自动切换和目标输入法选择
+ */
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
@@ -29,13 +33,13 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        // Auto switch toggle
+        // 自动切换开关
         binding.switchAutoDex.isChecked = PreferencesManager.isAutoSwitchEnabled(requireContext())
         binding.switchAutoDex.setOnCheckedChangeListener { _, isChecked ->
             PreferencesManager.setAutoSwitchEnabled(requireContext(), isChecked)
         }
 
-        // Target IME Spinner
+        // 目标输入法下拉菜单
         val imes = ImeManager.getEnabledInputMethods(requireContext())
         val imeNames = imes.map { it.loadLabel(requireContext().packageManager).toString() }
         val imeIds = imes.map { it.id }
@@ -44,7 +48,7 @@ class SettingsFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerTargetIme.adapter = adapter
 
-        // Set selection
+        // 设置当前选中项
         val savedTarget = PreferencesManager.getTargetImeId(requireContext())
         if (savedTarget != null) {
             val index = imeIds.indexOf(savedTarget)
@@ -53,7 +57,7 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        // Save selection
+        // 保存选中项
         binding.spinnerTargetIme.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: android.widget.AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (position >= 0 && position < imeIds.size) {
@@ -63,7 +67,7 @@ class SettingsFragment : Fragment() {
             override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
         }
 
-        // Test Switch
+        // 测试切换按钮
         binding.btnTestSwitch.setOnClickListener {
             val selectedPosition = binding.spinnerTargetIme.selectedItemPosition
             if (selectedPosition >= 0 && selectedPosition < imeIds.size) {
@@ -75,7 +79,7 @@ class SettingsFragment : Fragment() {
 
     private fun switchIme(imeId: String) {
         if (!ShizukuManager.hasPermission()) {
-            Toast.makeText(context, "Shizuku permission required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.toast_shizuku_permission_required), Toast.LENGTH_SHORT).show()
             ShizukuManager.requestPermission(requireActivity())
             return
         }
@@ -84,9 +88,9 @@ class SettingsFragment : Fragment() {
             val success = ImeManager.switchInputMethod(imeId)
             withContext(Dispatchers.Main) {
                 if (success) {
-                    Toast.makeText(context, "Switch Success!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.toast_switch_success), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Switch Failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.toast_switch_failed), Toast.LENGTH_SHORT).show()
                 }
             }
         }

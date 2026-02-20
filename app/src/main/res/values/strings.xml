@@ -1,13 +1,23 @@
 <resources>
-    <string name="app_name">DeXKeyBoard</string>
-    <string name="action_settings">Settings</string>
-    <string name="shizuku_permission_granted">Shizuku: Authorized</string>
-    <string name="shizuku_permission_denied">Shizuku: Not Authorized</string>
-    <string name="shizuku_not_running">Shizuku: Not Running</string>
-    <string name="dex_mode_on">DeX Mode: ON</string>
-    <string name="dex_mode_off">DeX Mode: OFF</string>
-    <string name="set_default">Set Default</string>
-    <string name="enable_auto_switch">Auto Switch in DeX</string>
-    <string name="target_ime">Target Input Method</string>
-    <string name="test_switch">Test Switch</string>
+    <string name="app_name">DeX输入法切换器</string>
+    <string name="action_settings">设置</string>
+    <string name="shizuku_permission_granted">Shizuku: 已授权</string>
+    <string name="shizuku_permission_denied">Shizuku: 未授权</string>
+    <string name="shizuku_not_running">Shizuku: 未运行</string>
+    <string name="dex_mode_on">DeX 模式: 已开启</string>
+    <string name="dex_mode_off">DeX 模式: 未开启</string>
+    <string name="set_default">设为默认</string>
+    <string name="current">当前使用</string>
+    <string name="enable_auto_switch">DeX 模式下自动切换</string>
+    <string name="target_ime">目标输入法</string>
+    <string name="test_switch">测试切换</string>
+    <string name="home">主页</string>
+    <string name="settings">设置</string>
+    <string name="input_methods">输入法列表</string>
+    <string name="log">操作日志</string>
+    <string name="shizuku_card_title">Shizuku 状态</string>
+    <string name="dex_card_title">DeX 状态</string>
+    <string name="toast_shizuku_permission_required">需要 Shizuku 权限</string>
+    <string name="toast_switch_success">切换成功！</string>
+    <string name="toast_switch_failed">切换失败！</string>
 </resources>

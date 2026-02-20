@@ -10,7 +10,7 @@ import com.dexkeyboard.databinding.ItemImeBinding
 class ImeAdapter(
     private val context: Context,
     private var imeList: List<InputMethodInfo>,
-    private varcurrentImeId: String,
+    private var currentImeId: String,
     private val onSetDefaultClick: (String) -> Unit
 ) : RecyclerView.Adapter<ImeAdapter.ViewHolder>() {
 
@@ -34,10 +34,10 @@ class ImeAdapter(
         holder.binding.ivIcon.setImageDrawable(ime.loadIcon(context.packageManager))
 
         if (ime.id == currentImeId) {
-            holder.binding.btnSetDefault.text = "Current"
+            holder.binding.btnSetDefault.text = context.getString(R.string.current)
             holder.binding.btnSetDefault.isEnabled = false
         } else {
-            holder.binding.btnSetDefault.text = "Set Default"
+            holder.binding.btnSetDefault.text = context.getString(R.string.set_default)
             holder.binding.btnSetDefault.isEnabled = true
             holder.binding.btnSetDefault.setOnClickListener {
                 onSetDefaultClick(ime.id)

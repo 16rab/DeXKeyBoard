@@ -3,9 +3,9 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@android:drawable/ic_menu_my_places"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_settings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:title="Settings" />
+        android:title="@string/settings" />
 </menu>

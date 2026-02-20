@@ -31,7 +31,7 @@
                 android:padding="16dp">
                 
                 <TextView
-                    android:text="Shizuku"
+                    android:text="@string/shizuku_card_title"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -62,7 +62,7 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:text="DeX Mode"
+                    android:text="@string/dex_card_title"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -79,7 +79,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Input Methods"
+        android:text="@string/input_methods"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"/>
@@ -94,7 +94,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log"
+        android:text="@string/log"
         android:textStyle="bold"
         android:layout_marginTop="8dp"/>
         

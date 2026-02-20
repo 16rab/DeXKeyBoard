@@ -1,0 +1,49 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v3
+
+    - name: 设置 JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: 授予 Gradlew 执行权限
+      run: chmod +x gradlew
+
+    - name: 编译构建 (Debug)
+      run: ./gradlew assembleDebug
+
+    - name: 运行单元测试
+      run: ./gradlew test
+
+    - name: 运行 Lint 检查
+      run: ./gradlew lint
+
+    - name: 上传构建产物 (APK)
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-debug
+        path: app/build/outputs/apk/debug/app-debug.apk
+
+    - name: 构建失败通知
+      if: failure()
+      run: |
+        echo "构建失败！请检查日志。"
+        # GitHub Actions 默认会发送邮件给触发者。
+        # 这里可以添加额外的通知逻辑，例如发送到 Slack 或 Discord 等。

@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <TextView
-        android:text="Settings"
+        android:text="@string/settings"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="24dp"

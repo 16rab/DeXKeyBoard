@@ -1,13 +1,19 @@
 package com.dexkeyboard
 
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import rikka.shizuku.Shizuku
 
+/**
+ * Shizuku 管理器
+ * 封装 Shizuku 的权限检查、请求和监听器管理
+ */
 object ShizukuManager {
     const val REQUEST_CODE = 1001
 
+    /**
+     * 检查 Shizuku 服务是否可用（是否正在运行）
+     */
     fun isShizukuAvailable(): Boolean {
         return try {
             Shizuku.pingBinder()
@@ -16,6 +22,9 @@ object ShizukuManager {
         }
     }
 
+    /**
+     * 检查是否已获得 Shizuku 权限
+     */
     fun hasPermission(): Boolean {
         if (!isShizukuAvailable()) return false
         return try {
@@ -25,12 +34,15 @@ object ShizukuManager {
         }
     }
 
+    /**
+     * 请求 Shizuku 权限
+     */
     fun requestPermission(activity: Activity) {
-        if (!isShizukuAvailable()) return // Cannot request if not available
+        if (!isShizukuAvailable()) return // 如果服务未运行，无法请求
         
         if (Shizuku.checkSelfPermission() != PackageManager.PERMISSION_GRANTED) {
             if (Shizuku.shouldShowRequestPermissionRationale()) {
-                // Ideally show a dialog explaining why
+                // 理想情况下应该显示一个对话框解释原因
             }
             Shizuku.requestPermission(REQUEST_CODE)
         }

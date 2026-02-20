@@ -12,6 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * 主页 Fragment
+ * 显示状态卡片、输入法列表和操作日志
+ */
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -31,14 +35,17 @@ class HomeFragment : Fragment() {
         
         binding.recyclerViewImes.layoutManager = LinearLayoutManager(requireContext())
         
-        // Initial load
+        // 初始加载状态
         refreshStatus()
     }
 
+    /**
+     * 刷新 UI 状态（Shizuku, DeX, 输入法列表）
+     */
     fun refreshStatus() {
         if (_binding == null) return
 
-        // Shizuku
+        // 检查 Shizuku 状态
         if (ShizukuManager.isShizukuAvailable()) {
             if (ShizukuManager.hasPermission()) {
                 binding.tvShizukuStatus.text = getString(R.string.shizuku_permission_granted)
@@ -52,7 +59,7 @@ class HomeFragment : Fragment() {
             binding.tvShizukuStatus.setTextColor(requireContext().getColor(android.R.color.holo_red_dark))
         }
 
-        // DeX
+        // 检查 DeX 状态
         if (DeXManager.isDeXMode(requireContext())) {
             binding.tvDexStatus.text = getString(R.string.dex_mode_on)
             binding.tvDexStatus.setTextColor(requireContext().getColor(android.R.color.holo_green_dark))
@@ -61,6 +68,7 @@ class HomeFragment : Fragment() {
             binding.tvDexStatus.setTextColor(requireContext().getColor(android.R.color.holo_red_dark))
         }
 
+        // 加载输入法列表
         loadImes()
     }
 
@@ -80,15 +88,15 @@ class HomeFragment : Fragment() {
             return
         }
         
-        log("Switching to $imeId...")
+        log("正在切换输入法到: $imeId...")
         lifecycleScope.launch(Dispatchers.IO) {
             val success = ImeManager.switchInputMethod(imeId)
             withContext(Dispatchers.Main) {
                 if (success) {
-                    log("Switch success!")
-                    loadImes() // Refresh list to update "Current" status
+                    log("切换成功！")
+                    loadImes() // 刷新列表以更新“当前使用”状态
                 } else {
-                    log("Switch failed. Check if Shizuku is running.")
+                    log("切换失败。请检查 Shizuku 是否正常运行。")
                 }
             }
         }
