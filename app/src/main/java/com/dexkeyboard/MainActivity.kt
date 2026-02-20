@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dexkeyboard.databinding.ActivityMainBinding
+import com.google.android.material.button.MaterialButtonToggleGroup
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize UI
+        setupThemeSettings()
         setupStatusCards()
         setupAutomationSettings()
         setupImeList()
@@ -51,9 +54,51 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshAll() {
+        // Apply saved theme
+        val savedTheme = PreferencesManager.getThemeMode(this)
+        applyTheme(savedTheme)
+
         checkShizukuStatus()
         checkDeXStatus()
         loadInputMethods()
+    }
+
+    private fun setupThemeSettings() {
+        val toggleGroup = binding.toggleTheme
+        
+        // Set initial selection
+        val currentMode = PreferencesManager.getThemeMode(this)
+        when (currentMode) {
+            PreferencesManager.THEME_SYSTEM -> toggleGroup.check(R.id.btn_theme_system)
+            PreferencesManager.THEME_LIGHT -> toggleGroup.check(R.id.btn_theme_light)
+            PreferencesManager.THEME_DARK -> toggleGroup.check(R.id.btn_theme_dark)
+        }
+
+        // Handle changes
+        toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val newMode = when (checkedId) {
+                    R.id.btn_theme_system -> PreferencesManager.THEME_SYSTEM
+                    R.id.btn_theme_light -> PreferencesManager.THEME_LIGHT
+                    R.id.btn_theme_dark -> PreferencesManager.THEME_DARK
+                    else -> PreferencesManager.THEME_SYSTEM
+                }
+                
+                PreferencesManager.setThemeMode(this, newMode)
+                applyTheme(newMode)
+            }
+        }
+    }
+
+    private fun applyTheme(mode: Int) {
+        val modeInt = when (mode) {
+            PreferencesManager.THEME_LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+            PreferencesManager.THEME_DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        if (AppCompatDelegate.getDefaultNightMode() != modeInt) {
+            AppCompatDelegate.setDefaultNightMode(modeInt)
+        }
     }
 
     private fun setupStatusCards() {

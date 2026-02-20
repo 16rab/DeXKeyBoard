@@ -37,6 +37,13 @@
     <string name="log_switch_success">切换成功！</string>
     <string name="log_switch_failed">切换失败。请检查 Shizuku 状态。</string>
     
+    <!-- Theme Settings -->
+    <string name="section_appearance">外观设置</string>
+    <string name="theme_title">应用主题</string>
+    <string name="theme_system">跟随系统</string>
+    <string name="theme_light">浅色模式</string>
+    <string name="theme_dark">深色模式</string>
+    
     <!-- Legacy / Adapter Strings -->
     <string name="set_default">设为默认</string>
     <string name="current">当前使用</string>

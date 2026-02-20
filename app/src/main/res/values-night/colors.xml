@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Mode Color Palette -->
+    
+    <!-- Backgrounds -->
+    <color name="bg_app">#121212</color>        <!-- Dark Gray (Material Dark Background) -->
+    <color name="bg_surface">#1E1E1E</color>    <!-- Slightly lighter gray for cards/surfaces -->
+    <color name="bg_subtle">#2C2C2C</color>     <!-- Lighter gray for inputs/secondary areas -->
+    
+    <!-- Text -->
+    <color name="text_primary">#F9FAFB</color>  <!-- Near White (Gray 50) -->
+    <color name="text_secondary">#D1D5DB</color><!-- Light Gray (Gray 300) -->
+    <color name="text_tertiary">#9CA3AF</color> <!-- Medium Gray (Gray 400) -->
+    <color name="text_on_brand">#FFFFFF</color>
+    
+    <!-- Brand / Accent -->
+    <color name="brand_primary">#3B82F6</color> <!-- Lighter Blue for better contrast on dark -->
+    <color name="brand_ripple">#263B82F6</color><!-- Ripple effect -->
+    
+    <!-- Functional Status -->
+    <color name="status_success">#34D399</color> <!-- Lighter Emerald -->
+    <color name="status_error">#F87171</color>   <!-- Lighter Red -->
+    <color name="status_warning">#FBBF24</color> <!-- Lighter Amber -->
+    
+    <!-- Borders / Dividers -->
+    <color name="stroke_default">#374151</color> <!-- Gray 700 -->
+    <color name="divider">#1F2937</color>        <!-- Gray 800 -->
+    
+    <!-- Legacy Mappings -->
+    <color name="purple_200">@color/brand_primary</color>
+    <color name="purple_500">@color/brand_primary</color>
+    <color name="purple_700">@color/brand_primary</color>
+    <color name="teal_200">@color/status_success</color>
+    <color name="teal_700">@color/status_success</color>
+    <color name="black">@color/text_primary</color>
+    <color name="white">@color/bg_surface</color>
+</resources>

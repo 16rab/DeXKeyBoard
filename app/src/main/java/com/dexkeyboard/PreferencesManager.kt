@@ -11,9 +11,30 @@ object PreferencesManager {
     private const val PREF_NAME = "dex_keyboard_prefs"
     private const val KEY_AUTO_SWITCH = "auto_switch"
     private const val KEY_TARGET_IME = "target_ime"
+    private const val KEY_THEME_MODE = "theme_mode"
+
+    // Theme modes
+    const val THEME_SYSTEM = 0
+    const val THEME_LIGHT = 1
+    const val THEME_DARK = 2
 
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    }
+
+    /**
+     * 获取主题模式设置
+     * @return THEME_SYSTEM (0), THEME_LIGHT (1), or THEME_DARK (2)
+     */
+    fun getThemeMode(context: Context): Int {
+        return getPrefs(context).getInt(KEY_THEME_MODE, THEME_SYSTEM)
+    }
+
+    /**
+     * 设置主题模式
+     */
+    fun setThemeMode(context: Context, mode: Int) {
+        getPrefs(context).edit().putInt(KEY_THEME_MODE, mode).apply()
     }
 
     /**
