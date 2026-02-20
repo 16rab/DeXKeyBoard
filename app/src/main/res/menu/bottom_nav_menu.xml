@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@android:drawable/ic_menu_my_places"
+        android:icon="@drawable/ic_my_places"
         android:title="@string/home" />
     <item
         android:id="@+id/navigation_settings"
