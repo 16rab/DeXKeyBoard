@@ -6,44 +6,83 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
+# 并发控制：取消正在进行的同名构建
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    timeout-minutes: 30 # 设置超时时间防止挂死
 
     steps:
-    - name: 检出代码
+    - name: 检出代码 (Checkout)
       uses: actions/checkout@v4
 
-    - name: 设置 JDK 11
+    - name: 设置 JDK 17 (Setup Java)
       uses: actions/setup-java@v4
       with:
-        java-version: '11'
+        java-version: '17'
         distribution: 'temurin'
-        cache: gradle
+        cache: gradle # 启用 Gradle 缓存
 
-    - name: 授予 Gradlew 执行权限
-      run: chmod +x gradlew
+    - name: 设置 Gradle (Setup Gradle)
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: 8.0 # 指定 Gradle 版本
+        # cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' }} # 可选优化：只在主分支写缓存
 
-    - name: 编译构建 (Debug)
-      run: ./gradlew assembleDebug
+    - name: 授予执行权限 (Grant Permission)
+      # 如果 gradlew 存在，授予权限；否则使用 setup-gradle 提供的 gradle 命令
+      run: |
+        if [ -f gradlew ]; then
+          chmod +x gradlew
+        else
+          echo "Warning: gradlew wrapper script not found. Using system/setup-gradle installed gradle."
+        fi
 
-    - name: 运行单元测试
-      run: ./gradlew test
+    - name: 编译构建 (Build Debug APK)
+      # 使用 gradle 命令，兼容无 wrapper 的情况
+      run: gradle assembleDebug --stacktrace
 
-    - name: 运行 Lint 检查
-      run: ./gradlew lint
+    - name: 运行单元测试 (Run Unit Tests)
+      run: gradle testDebugUnitTest --stacktrace
 
-    - name: 上传构建产物 (APK)
+    - name: 运行 Lint 检查 (Run Lint)
+      # 使用 --continue 确保即使有 lint 错误也能生成报告
+      run: gradle lintDebug --continue
+
+    - name: 上传构建产物 (Upload APK)
       if: success()
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
         path: app/build/outputs/apk/debug/app-debug.apk
+        retention-days: 7 # 设置保留时间
 
-    - name: 构建失败通知
+    - name: 上传 Lint 报告 (Upload Lint Report)
+      if: always() # 无论构建是否成功都上传报告
+      uses: actions/upload-artifact@v4
+      with:
+        name: lint-report
+        path: app/build/reports/lint-results-debug.html
+        retention-days: 7
+
+    - name: 上传测试报告 (Upload Test Report)
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-report
+        path: app/build/reports/tests/testDebugUnitTest/index.html
+        retention-days: 7
+
+    - name: 构建失败通知 (Failure Notification)
       if: failure()
       run: |
-        echo "构建失败！请检查日志。"
-        # GitHub Actions 默认会发送邮件给触发者。
-        # 这里可以添加额外的通知逻辑，例如发送到 Slack 或 Discord 等。
+        echo "::error::构建失败！请检查上述日志。"
+        echo "常见原因排查："
+        echo "1. 依赖版本冲突：请检查 build.gradle 中的依赖声明。"
+        echo "2. SDK 缺失：确保 compileSdk 和 targetSdk 与 runner 环境兼容。"
+        echo "3. 权限问题：如果是 gradlew 执行失败，可能是权限不足。"
+        # 可在此处添加发送 Slack/钉钉 通知的逻辑
