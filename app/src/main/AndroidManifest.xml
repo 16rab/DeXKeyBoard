@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DeXKeyBoard"
+        tools:targetApi="31">
+
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="false"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".DeXReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.samsung.android.desktopmode.action.ENTER_DESKTOP_MODE" />
+                <action android:name="com.samsung.android.desktopmode.action.EXIT_DESKTOP_MODE" />
+                <action android:name="android.app.action.ENTER_DESKTOP_MODE" />
+                <action android:name="android.app.action.EXIT_DESKTOP_MODE" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
