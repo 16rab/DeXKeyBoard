@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@color/bg_app"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/brand_primary"
+        android:background="@android:color/transparent"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/text_on_primary"
-            app:subtitle="@string/app_subtitle"
-            app:subtitleTextColor="#CCFFFFFF" />
-
+            android:background="@android:color/transparent"
+            app:title=""
+            app:subtitle="" />
+            
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -33,27 +33,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="48dp"
             android:clipToPadding="false">
+
+            <!-- Custom Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    style="@style/TextAppearance.App.Headline" />
+                    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_subtitle"
+                    style="@style/TextAppearance.App.Subtitle"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
 
             <!-- Status Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/section_status"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:letterSpacing="0.05"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"/>
+                style="@style/TextAppearance.App.SectionHeader"
+                android:layout_marginBottom="12dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:baselineAligned="false"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="32dp">
 
                 <!-- Shizuku Status Card -->
                 <com.google.android.material.card.MaterialCardView
@@ -62,25 +81,26 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/surface_white"
-                    app:strokeWidth="0dp">
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/stroke_default"
+                    app:cardBackgroundColor="@color/bg_surface"
+                    app:cardCornerRadius="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center_vertical">
+                        android:padding="20dp"
+                        android:gravity="start">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/status_shizuku_title"
-                            android:textStyle="bold"
                             android:textColor="@color/text_primary"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tv_shizuku_status"
@@ -89,7 +109,7 @@
                             android:text="@string/status_shizuku_not_running"
                             android:textColor="@color/status_error"
                             android:textSize="14sp"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_marginTop="8dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -100,34 +120,35 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="2dp"
-                    app:cardBackgroundColor="@color/surface_white"
-                    app:strokeWidth="0dp">
+                    app:cardElevation="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/stroke_default"
+                    app:cardBackgroundColor="@color/bg_surface"
+                    app:cardCornerRadius="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
-                        android:gravity="center_vertical">
+                        android:padding="20dp"
+                        android:gravity="start">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/status_dex_title"
-                            android:textStyle="bold"
                             android:textColor="@color/text_primary"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/tv_dex_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/status_dex_inactive"
-                            android:textColor="@color/text_secondary"
+                            android:textColor="@color/text_tertiary"
                             android:textSize="14sp"
-                            android:layout_marginTop="4dp"/>
+                            android:layout_marginTop="8dp"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -137,44 +158,68 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/section_automation"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:letterSpacing="0.05"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"/>
+                style="@style/TextAppearance.App.SectionHeader"
+                android:layout_marginBottom="12dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface_white"
-                app:strokeWidth="0dp">
+                android:layout_marginBottom="32dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stroke_default"
+                app:cardBackgroundColor="@color/bg_surface"
+                app:cardCornerRadius="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="24dp">
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switch_auto_dex"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/auto_switch_title"
-                        android:textSize="16sp"
-                        android:textColor="@color/text_primary"
-                        app:thumbTint="@color/brand_primary"
-                        app:trackTint="#90CAF9"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/auto_switch_title"
+                                android:textSize="16sp"
+                                android:textColor="@color/text_primary"
+                                android:textStyle="bold"/>
+                                
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Automatically change IME when DeX starts"
+                                android:textSize="12sp"
+                                android:textColor="@color/text_secondary"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switch_auto_dex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:thumbTint="@color/brand_primary"
+                            app:trackTint="@color/stroke_default"/>
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#E5E7EB"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp"/>
+                        android:background="@color/divider"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -182,7 +227,7 @@
                         android:text="@string/target_ime_label"
                         android:textSize="14sp"
                         android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="12dp"/>
 
                     <Spinner
                         android:id="@+id/spinner_target_ime"
@@ -195,12 +240,14 @@
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_test_switch"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="56dp"
                         android:text="@string/btn_test_switch"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="24dp"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:textColor="@color/brand_primary"
-                        app:strokeColor="@color/brand_primary"/>
+                        app:strokeColor="@color/brand_primary"
+                        app:strokeWidth="1dp"
+                        app:cornerRadius="12dp"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -210,26 +257,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/section_imes"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:letterSpacing="0.05"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"/>
+                style="@style/TextAppearance.App.SectionHeader"
+                android:layout_marginBottom="12dp"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface_white"
-                app:strokeWidth="0dp">
+                android:layout_marginBottom="32dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stroke_default"
+                app:cardBackgroundColor="@color/bg_surface"
+                app:cardCornerRadius="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingVertical="8dp">
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_imes"
@@ -237,8 +282,6 @@
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
                         tools:listitem="@layout/item_ime"/>
-                        
-                    <!-- Empty State / Loading State could go here -->
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
             
@@ -247,33 +290,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/section_log"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp"
-                android:textAllCaps="true"
-                android:letterSpacing="0.05"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="4dp"/>
+                style="@style/TextAppearance.App.SectionHeader"
+                android:layout_marginBottom="12dp"/>
 
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#2D3748"
-                app:strokeWidth="0dp">
+                android:background="@drawable/bg_log_area"
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/tv_log"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:padding="12dp"
-                    android:textColor="#E2E8F0"
+                    android:textColor="@color/text_secondary"
                     android:fontFamily="monospace"
                     android:textSize="12sp"
                     android:scrollbars="vertical"
                     android:text="@string/log_ready"/>
-            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
