@@ -4,6 +4,9 @@ import android.content.Context
 import android.provider.Settings
 import android.view.inputmethod.InputMethodInfo
 import android.view.inputmethod.InputMethodManager
+import android.os.Build
+import androidx.annotation.RequiresApi
+import android.annotation.SuppressLint
 import rikka.shizuku.Shizuku
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -44,16 +47,39 @@ object ImeManager {
             return false
         }
 
+        // 检查 Android 版本
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return false
+        }
+
         val command = "ime set $imeId"
         return try {
             // 通过 Shizuku 执行 shell 命令
-            val process = Shizuku.newProcess(arrayOf("sh", "-c", command), null, null)
+            val process = safeAccessNewProcess(arrayOf("sh", "-c", command), null, null) ?: return false
             val exitCode = process.waitFor()
             // 可选: 如果需要读取错误输出，可以使用 process.errorStream
             exitCode == 0
         } catch (e: Exception) {
             e.printStackTrace()
             false
+        }
+    }
+
+    @SuppressLint("PrivateApi")
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun safeAccessNewProcess(command: Array<String>, env: Array<String>?, dir: String?): Process? {
+        return try {
+            val method = Shizuku::class.java.getDeclaredMethod(
+                "newProcess",
+                Array<String>::class.java,
+                Array<String>::class.java,
+                String::class.java
+            )
+            method.isAccessible = true
+            method.invoke(null, command, env, dir) as? Process
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }
