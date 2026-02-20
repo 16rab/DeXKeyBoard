@@ -1,23 +1,43 @@
 <resources>
-    <string name="app_name">DeX输入法切换器</string>
-    <string name="action_settings">设置</string>
-    <string name="shizuku_permission_granted">Shizuku: 已授权</string>
-    <string name="shizuku_permission_denied">Shizuku: 未授权</string>
-    <string name="shizuku_not_running">Shizuku: 未运行</string>
-    <string name="dex_mode_on">DeX 模式: 已开启</string>
-    <string name="dex_mode_off">DeX 模式: 未开启</string>
+    <string name="app_name">DeX 输入法管家</string>
+    <string name="app_subtitle">DeX Input Manager</string>
+    
+    <!-- Section Headers -->
+    <string name="section_status">系统状态</string>
+    <string name="section_automation">自动化设置</string>
+    <string name="section_imes">可用输入法</string>
+    <string name="section_log">运行日志</string>
+    
+    <!-- Status Cards -->
+    <string name="status_shizuku_title">Shizuku 服务</string>
+    <string name="status_shizuku_running">运行中 &amp; 已授权</string>
+    <string name="status_shizuku_denied">权限被拒绝</string>
+    <string name="status_shizuku_not_running">未运行</string>
+    
+    <string name="status_dex_title">DeX 模式</string>
+    <string name="status_dex_active">已激活</string>
+    <string name="status_dex_inactive">未激活</string>
+    
+    <!-- Automation Card -->
+    <string name="auto_switch_title">DeX 模式自动切换</string>
+    <string name="target_ime_label">DeX 模式目标输入法</string>
+    <string name="btn_test_switch">立即测试切换</string>
+    
+    <!-- Log Messages -->
+    <string name="log_ready">系统就绪...</string>
+    <string name="log_shizuku_not_running">Shizuku 未运行。</string>
+    <string name="log_shizuku_granted">Shizuku 权限已获取。</string>
+    <string name="log_dex_refreshed">DeX 状态已刷新。</string>
+    <string name="log_auto_switch_enabled">自动切换已开启</string>
+    <string name="log_auto_switch_disabled">自动切换已关闭</string>
+    <string name="log_no_target_ime">未选择目标输入法。</string>
+    <string name="log_no_imes_found">警告：未找到输入法，请检查权限。</string>
+    <string name="log_permission_required">需要权限。正在请求 Shizuku 权限...</string>
+    <string name="log_switching_to">正在切换至 %1$s...</string>
+    <string name="log_switch_success">切换成功！</string>
+    <string name="log_switch_failed">切换失败。请检查 Shizuku 状态。</string>
+    
+    <!-- Legacy / Adapter Strings -->
     <string name="set_default">设为默认</string>
     <string name="current">当前使用</string>
-    <string name="enable_auto_switch">DeX 模式下自动切换</string>
-    <string name="target_ime">目标输入法</string>
-    <string name="test_switch">测试切换</string>
-    <string name="home">主页</string>
-    <string name="settings">设置</string>
-    <string name="input_methods">输入法列表</string>
-    <string name="log">操作日志</string>
-    <string name="shizuku_card_title">Shizuku 状态</string>
-    <string name="dex_card_title">DeX 状态</string>
-    <string name="toast_shizuku_permission_required">需要 Shizuku 权限</string>
-    <string name="toast_switch_success">切换成功！</string>
-    <string name="toast_switch_failed">切换失败！</string>
 </resources>

@@ -1,9 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Brand Colors -->
+    <color name="brand_primary">#2563EB</color>     <!-- Royal Blue -->
+    <color name="brand_primary_dark">#1E40AF</color>
+    <color name="brand_secondary">#10B981</color>   <!-- Emerald Green -->
+    
+    <!-- UI Colors -->
+    <color name="background_light">#F3F4F6</color>  <!-- Cool Gray 100 -->
+    <color name="surface_white">#FFFFFF</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#1F2937</color>      <!-- Cool Gray 800 -->
+    <color name="text_secondary">#6B7280</color>    <!-- Cool Gray 500 -->
+    <color name="text_on_primary">#FFFFFF</color>
+    
+    <!-- Status Colors -->
+    <color name="status_success">#059669</color>
+    <color name="status_error">#DC2626</color>
+    <color name="status_warning">#D97706</color>
+    
+    <!-- Legacy Mappings for Theme -->
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#6200EE</color>
-    <color name="purple_700">#3700B3</color>
-    <color name="teal_200">#03DAC5</color>
-    <color name="teal_700">#018786</color>
+    <color name="purple_500">#2563EB</color>
+    <color name="purple_700">#1E40AF</color>
+    <color name="teal_200">#10B981</color>
+    <color name="teal_700">#047857</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
