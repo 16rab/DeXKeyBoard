@@ -19,6 +19,7 @@
 3. 编译并安装到您的 Samsung 设备。
 
 关于 CI/CD 编译错误排查与环境配置，请参阅 [CI/CD 故障排查与优化指南](CI_TROUBLESHOOTING.md)。
+针对最近一次 CI 构建失败的详细分析报告，请参阅 [CI 故障分析与修复报告](CI_ANALYSIS_REPORT.md)。
 
 ## 使用说明
 1. 打开应用。

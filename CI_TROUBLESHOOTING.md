@@ -55,6 +55,21 @@ gradle app:dependencies
 ```
 查看依赖树，找出冲突的库，并使用 `exclude` 或强制指定版本解决。
 
+### 1.4 Gradle 版本错误
+**错误信息：**
+```
+Error: Gradle version 8 does not exists
+```
+**原因：**
+在 `.github/workflows/android.yml` 中配置 `gradle-version` 时使用了纯数字（如 `8` 或 `8.0`），导致解析错误或版本匹配失败。
+**修复方案：**
+务必将版本号用引号包裹，指定为字符串格式，且使用完整的版本号（如 `'8.0'`）：
+```yaml
+- uses: gradle/actions/setup-gradle@v3
+  with:
+    gradle-version: '8.0'
+```
+
 ## 2. 本地环境复现 CI 错误
 
 为了确保本地环境与 CI 一致，建议按照以下步骤进行验证：

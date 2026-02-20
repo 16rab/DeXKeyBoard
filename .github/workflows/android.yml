@@ -30,7 +30,7 @@ jobs:
     - name: 设置 Gradle (Setup Gradle)
       uses: gradle/actions/setup-gradle@v3
       with:
-        gradle-version: 8.0 # 指定 Gradle 版本
+        gradle-version: '8.0' # 指定 Gradle 版本，加引号防止解析错误
         # cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' }} # 可选优化：只在主分支写缓存
 
     - name: 授予执行权限 (Grant Permission)
